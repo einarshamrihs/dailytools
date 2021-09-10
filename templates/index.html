@@ -1,0 +1,51 @@
+{% raw %}
+<!DOCTYPE html>
+<html ng-app="DailyToolsApp">
+    <head>
+        <title>Daily tools</title>
+        <link rel="stylesheet" href="css/main-stylesheet.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-grid.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-reboot.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-utilities.min.css"/>
+        <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="js/angularjs/angular-route.js"></script>
+        <script type="text/javascript" src="js/DailyToolsApp.js"></script>
+    </head>
+    <body ng-controller="DailyToolsMainController">
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#"> Daily tools</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a ng-class="{'active':$route.current.active === '/'}" class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a ng-class="{'active':$route.current.active === 'password'}" class="nav-link" href="#!password">Password generator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a ng-class="{'active':$route.current.active === 'hash'}" class="nav-link" href="#!hash">Hash generator</a>
+                    </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="p-3 border bg-light" ng-view></div>
+    </div>
+
+
+        <script type="text/javascript" src="js/controllers/DailyToolsController.js"></script>
+        <script type="text/javascript" src="js/controllers/PasswordController.js"></script>
+        <script type="text/javascript" src="js/controllers/HashController.js"></script>
+    </body>
+</html>
+{% endraw %}
