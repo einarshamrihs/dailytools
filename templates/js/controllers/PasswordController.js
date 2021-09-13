@@ -45,5 +45,11 @@ DailyToolsApp.controller('PasswordController', function($scope,$location,$docume
 
     }
 
+    $scope.copyPassword = (fieldID) => {
+        let copyText = document.getElementById(fieldID);
+        copyText.select();
+        document.execCommand('copy');
+    }
+
     $scope.init();
 });
