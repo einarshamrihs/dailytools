@@ -3,4 +3,27 @@
         <h1>Hash generator</h1>
     </div>
 
+    <div class="row justify-content-md-right">
+        <div class="col-6 pr-4">
+            <form name="genHashForm" class="form-group mb-2">
+                <div class="form-group">
+                    <label for="algorithm_options">Algorithm:</label>
+                    <select ng-model="hash_params.algorithm" ng-options="al for al in algorithms" class="form-control" id="algorithm_options"></select>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="line_check" ng-model="hash_params.seperate_lines">
+                    <label class="form-check-label" for="line_check">Treat every line like a seperate string</label>
+                </div>
+                <label for="hash_input">Input string:</label>
+                <textarea class="form-control mb-2" id="hash_input" ng-model="hash_params.input" rows="16" cols="16" ng-required="true"></textarea>
+            </form>
+            <button class="btn btn-primary col-12" type="button" ng-disabled="!genHashForm.$valid" ng-click="generateHash()">Generate</button>
+        </div>
+        <div class="col-6">
+            <label for="hash_output">Your hash:</label>
+            <textarea class="form-control mb-2" id="hash_output" ng-model="hash_output" rows="20" cols="16" readonly></textarea>
+            <button class="btn btn-primary col-12" type="button" ng-click="copyHash('hash_output')">Copy to clipboard</button>
+        </div>
+    </div>
+
 </div>

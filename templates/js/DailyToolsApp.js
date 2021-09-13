@@ -5,7 +5,7 @@ config(['$routeProvider',
     function config($routeProvider) {
         $routeProvider
         .when("/", {
-            templateUrl : "views/password.html",
+            templateUrl : "views/home.html",
             active:'password'
         })
         .when("/password", {

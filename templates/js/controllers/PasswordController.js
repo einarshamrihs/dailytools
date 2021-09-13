@@ -1,10 +1,8 @@
 DailyToolsApp.controller('PasswordController', function($scope,$location,$document) {
 
     $scope.init = () => {
-        if ($location.$$path === '/') {
+        if ($location.$$path === '/password') {
             console.log('/')
-        } else if ($location.$$path === '/password') {
-            console.log('password')
         }
     }
 
