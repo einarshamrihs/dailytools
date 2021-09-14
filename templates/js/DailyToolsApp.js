@@ -1,4 +1,4 @@
-let DailyToolsApp = angular.module('DailyToolsApp', ["ngRoute"]);
+let DailyToolsApp = angular.module('DailyToolsApp', ["ngRoute","ngFileUpload"]);
 
 DailyToolsApp.
 config(['$routeProvider',
@@ -15,6 +15,10 @@ config(['$routeProvider',
         .when("/hash", {
             templateUrl : "views/hash.html",
             active:'hash'
+        })
+        .when("/audio_converter", {
+            templateUrl : "views/audio_converter.html",
+            active:'audio_converter'
         });
     }
 ]);

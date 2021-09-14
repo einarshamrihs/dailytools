@@ -1,0 +1,23 @@
+<div class="" ng-controller="AudioConverterController">
+    <div>
+        <h1>Audio converter</h1>
+    </div>
+
+    <body>
+        <audio id="player" controls></audio>
+
+        <form name="newAudioForm">
+
+            <button name="audioFile" type="file" ngf-select accept="audio/*" ng-model="audioFile" ngf-max-size="20MB">Select File</button>
+            <div>{{audioFile.name}}</div>
+         <br />
+
+            <div>
+                <button ng-disabled="uploadAudioDisabled"
+                        ng-click="transcode();">Convert file</button>
+            </div>
+        </form>
+
+      </body>
+      
+</div>
