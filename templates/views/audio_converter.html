@@ -4,20 +4,86 @@
     </div>
 
     <body>
-        <audio id="player" controls></audio>
-
-        <form name="newAudioForm">
-
-            <button name="audioFile" type="file" ngf-select accept="audio/*" ng-model="audioFile" ngf-max-size="20MB">Select File</button>
-            <div>{{audioFile.name}}</div>
-         <br />
-
-            <div>
-                <button ng-disabled="uploadAudioDisabled"
-                        ng-click="transcode();">Convert file</button>
+        <div ng-if="loading_ffmpeg" class="text-center">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
             </div>
-        </form>
+            <div>
+                <span class="sr-only">Loading ffmpeg</span>
+            </div>
+        </div>
+        <div ng-if="!loading_ffmpeg" class="row justify-content-md-right">
+            <div class="col-6 pr-4">
 
-      </body>
+                <form name="newAudioForm" class="form-group mb-2">
+
+                    <div class="form-group">
+                        <label for="target_format">Target format:</label>
+                        <select ng-model="audio_params.target_format"
+                            ng-options="f for f in target_formats"
+                            class="form-control" id="target_format"></select>
+                    </div>
+
+                    <div class="form-group mb-2" ng-switch="audio_params.target_format">
+                        <div ng-switch-when="wav">
+
+                            <div class="form-group">
+                                <label for="bit_resolution">Bit resolution:</label>
+                                <select ng-model="audio_params.bit_resolution"
+                                    ng-options="br.codec as br.title for br in bit_resolutions"
+                                    class="form-control" id="bit_resolution"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sampling_rate">Sampling rate (Hz):</label>
+                                <select ng-model="audio_params.sampling_rate" ng-options="sr for sr in sampling_rates" class="form-control" id="sampling_rate"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="channels">Channels:</label>
+                                <select ng-model="audio_params.channels"
+                                    ng-options="ch.option as ch.title for ch in channels"
+                                    class="form-control" id="channels"></select>
+                            </div>
+                        </div>
+                        <div ng-switch-default>
+                            <div>Not supported</div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <button class="btn btn-primary col-12 mb-2" name="audioFile" type="file" ngf-select accept="audio/*" ng-model="audioFile"
+                            ngf-max-size="20MB" ngf-multiple="true">Select Files</button>
+                        <div ng-if="audioFile.length>0">Selected files:
+                            <p ng-repeat="audio in audioFile">{{audio.name}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <button class="btn btn-primary col-12" ng-disabled="audioFile.length > 30 || !audioFile || loading"
+                            ng-click="convertFiles();">Convert files</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-6 pr-4">
+                <div ng-if="loading" class="text-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    </div>
+                    <div>
+                        <span class="sr-only">{{loading_text}}</span>
+                    </div>
+                </div>
+                <div ng-if="outputArr.length>0">Converted files:</div>
+                <div ng-if="outputArr.length>0"  ng-repeat="file in outputArr">
+                    <div class="mb-2"><a class="btn btn-success col-6" href="{{file.url}}" role="button" targer="_blank" download="{{file.name}}">Download</a> {{file.name}}</div>
+                </div>
+                <div ng-if="outputZIPFile">
+                    <a class="btn btn-success col-12" href="{{outputZIPFile.url}}" role="button" targer="_blank" download>Download as ZIP</a>
+                </div>
+            </div>
+        </div>
+
+    </body>
       
 </div>
