@@ -19,6 +19,16 @@ config(['$routeProvider',
         .when("/audio_converter", {
             templateUrl : "views/audio_converter.html",
             active:'audio_converter'
+        })
+        .when("/key_generator", {
+            templateUrl : "views/key_generator.html",
+            active:'key_generator'
         });
     }
 ]);
+
+DailyToolsApp.
+config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+}]);

@@ -39,6 +39,9 @@
                     <li class="nav-item">
                         <a ng-class="{'active':$route.current.active === 'audio_converter'}" class="nav-link" href="#!audio_converter">Audio converter</a>
                     </li>
+                    <li class="nav-item">
+                        <a ng-class="{'active':$route.current.active === 'key_generator'}" class="nav-link" href="#!key_generator">Key generator</a>
+                    </li>
                 </ul>
             </div>
           </div>
@@ -50,10 +53,12 @@
         <script type="text/javascript" src="js/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
         <script type="text/javascript" src="js/libs/ffmpeg/0.10.0/ffmpeg.min.js"></script>
         <script type="text/javascript" src="js/libs/jszip/3.2.0/jszip.min.js"></script>
+        <script type="text/javascript" src="js/libs/openpgp/5.0.0/openpgp.min.js"></script>
         <script type="text/javascript" src="js/controllers/DailyToolsController.js"></script>
         <script type="text/javascript" src="js/controllers/PasswordController.js"></script>
         <script type="text/javascript" src="js/controllers/HashController.js"></script>
         <script type="text/javascript" src="js/controllers/AudioConverterController.js"></script>
+        <script type="text/javascript" src="js/controllers/KeyGeneratorController.js"></script>
     </body>
 
     <footer>
