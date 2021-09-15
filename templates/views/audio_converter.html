@@ -16,33 +16,52 @@
 
                 <form name="newAudioForm" class="form-group mb-2">
 
-                    <div class="form-group">
-                        <label for="target_format">Target format:</label>
-                        <select ng-model="audio_params.target_format"
-                            ng-options="f for f in target_formats"
-                            class="form-control" id="target_format"></select>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="type">Target format:</span>
+                        </div>
+                        <select class="custom-select form-control"
+                                ng-model="audio_params.target_format"
+                                ng-options="f for f in target_formats"
+                                id="target_format">
+                        </select>
                     </div>
+
 
                     <div class="form-group mb-2" ng-switch="audio_params.target_format">
                         <div ng-switch-when="wav">
 
-                            <div class="form-group">
-                                <label for="bit_resolution">Bit resolution:</label>
-                                <select ng-model="audio_params.bit_resolution"
-                                    ng-options="br.codec as br.title for br in bit_resolutions"
-                                    class="form-control" id="bit_resolution"></select>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="type">Bit resolution:</span>
+                                </div>
+                                <select class="custom-select form-control"
+                                        ng-model="audio_params.bit_resolution"
+                                        ng-options="br.codec as br.title for br in bit_resolutions"
+                                        id="bit_resolution">
+                                </select>
+                            </div>
+            
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="type">Sampling rate (Hz):</span>
+                                </div>
+                                <select class="custom-select form-control"
+                                        ng-model="audio_params.sampling_rate"
+                                        ng-options="sr for sr in sampling_rates"
+                                        id="sampling_rate">
+                                </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="sampling_rate">Sampling rate (Hz):</label>
-                                <select ng-model="audio_params.sampling_rate" ng-options="sr for sr in sampling_rates" class="form-control" id="sampling_rate"></select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="channels">Channels:</label>
-                                <select ng-model="audio_params.channels"
-                                    ng-options="ch.option as ch.title for ch in channels"
-                                    class="form-control" id="channels"></select>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="type">Channels:</span>
+                                </div>
+                                <select class="custom-select form-control"
+                                        ng-model="audio_params.channels"
+                                        ng-options="ch.option as ch.title for ch in channels"
+                                        id="channels">
+                                </select>
                             </div>
                         </div>
                         <div ng-switch-default>
