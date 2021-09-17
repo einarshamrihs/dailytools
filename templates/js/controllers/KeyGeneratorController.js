@@ -31,31 +31,37 @@ DailyToolsApp.controller('KeyGeneratorController', function($scope,$location,Upl
 
     $scope.generateKey = async () => {
         $scope.generating = true;
+        $scope.error = '';
         let expires = 60 * 60 * 24 * $scope.key_params.expires;
-        const key = await openpgp.generateKey({
-            userIDs: $scope.key_params.users, // you can pass multiple user IDs
-            rsaBits: $scope.key_params.rsa_bits,                                              // RSA key size
-            passphrase: $scope.key_params.passphrase           // protects the private key
-        }).catch(function (error) {
-            throw new Error(error);
-        });
+        try {
+            const key = await openpgp.generateKey({
+                userIDs: $scope.key_params.users, // you can pass multiple user IDs
+                rsaBits: $scope.key_params.rsa_bits,                                              // RSA key size
+                passphrase: $scope.key_params.passphrase           // protects the private key
+            });
 
-        let keySummary = await openpgp.readKey({ armoredKey: key.privateKey });
-        let keyObj = { id: keySummary.keyPacket.keyID.toHex()}
+            let keySummary = await openpgp.readKey({ armoredKey: key.privateKey });
+            let keyObj = { id: keySummary.keyPacket.keyID.toHex()}
 
-        $scope.privateKey = key.privateKey;
-        let privateKeyBlob = new Blob([ $scope.privateKey ], { type: 'text/plain' });
-        $scope.privateKeyFilename = `${keyObj.id}-priv.asc`;
-        $scope.privateKeyUrl = (window.URL || window.webkitURL).createObjectURL( privateKeyBlob );
+            $scope.privateKey = key.privateKey;
+            let privateKeyBlob = new Blob([ $scope.privateKey ], { type: 'text/plain' });
+            $scope.privateKeyFilename = `${keyObj.id}-priv.asc`;
+            $scope.privateKeyUrl = (window.URL || window.webkitURL).createObjectURL( privateKeyBlob );
 
-        $scope.publicKey = key.publicKey;
-        let publicKeyBlob = new Blob([ $scope.publicKey ], { type: 'text/plain' });
-        $scope.publicKeyFilename = `${keyObj.id}-pub.asc`;
-        $scope.publicKeyUrl = (window.URL || window.webkitURL).createObjectURL( publicKeyBlob );
+            $scope.publicKey = key.publicKey;
+            let publicKeyBlob = new Blob([ $scope.publicKey ], { type: 'text/plain' });
+            $scope.publicKeyFilename = `${keyObj.id}-pub.asc`;
+            $scope.publicKeyUrl = (window.URL || window.webkitURL).createObjectURL( publicKeyBlob );
 
-        $scope.generating = false;
+            $scope.generating = false;
 
-        $scope.$apply();
+            $scope.$apply();
+
+        } catch (error) {
+            $scope.error = error;
+            $scope.$apply();
+            return
+        }
     }
 
     $scope.copyKey = (fieldID) => {
