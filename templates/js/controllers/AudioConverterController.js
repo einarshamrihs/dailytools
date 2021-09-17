@@ -59,7 +59,7 @@ DailyToolsApp.controller('AudioConverterController', function($scope,$location,U
 
     $scope.transcode = async (file) => {
 
-        let name = file.name;
+        let name = file.name.replace(/\.[^/.]+$/, "") + '.' + $scope.audio_params.target_format;
         $scope.ffmpeg.FS('writeFile', name, await $scope.fetchFile(file));
         switch($scope.audio_params.target_format) {
             case "wav":
