@@ -2,8 +2,7 @@ DailyToolsApp.controller('HashController', function($scope,$location) {
 
     $scope.init = function () {
         if ($location.$$path === '/hash') {
-            console.log('hash:')
-            console.log(CryptoJS.MD5('hash').toString());
+            console.log('hash')
         }
     }
 

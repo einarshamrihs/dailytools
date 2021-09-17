@@ -32,7 +32,6 @@ DailyToolsApp.controller('PasswordController', function($scope,$location,$docume
             }).concat().join('').split('').sort(() => {
                 return 0.5-Math.random();
             }).join('');
-            console.log('password: ',password)
 
             $scope.passwords_list = $scope.passwords_list.concat(password, '\n');
         }

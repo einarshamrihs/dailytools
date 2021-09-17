@@ -70,6 +70,5 @@ DailyToolsApp.controller('KeyGeneratorController', function($scope,$location,Upl
         document.execCommand('copy');
     }
 
-    $scope.changed = () => {console.log($scope.key_params)}
     $scope.init();
 });

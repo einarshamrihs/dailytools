@@ -48,11 +48,9 @@ DailyToolsApp.controller('AudioDecrypterController', function($scope,$location,U
 
             blobAudio = new Blob([decrypted], {type : 'audio/mpeg'});
             $scope.audioSrc = URL.createObjectURL(blobAudio);
-            console.log($scope.audioSrc);
             $scope.$apply();
     
         } catch (error) {
-            console.log(error);
             $scope.error = error;
             $scope.$apply();
             return

@@ -39,7 +39,6 @@ DailyToolsApp.controller('AudioConverterController', function($scope,$location,U
         $scope.loading = true;
         $scope.loading_text = 'Converting...';
         $scope.outputArr = [];
-        console.log($scope.audioFile);
         for (const [i,file] of $scope.audioFile.entries()) {
 //            $scope.loading_text = `Converting ${i+1} of ${$scope.audioFile.length} files...`;
             await $scope.transcode(file);
@@ -51,10 +50,8 @@ DailyToolsApp.controller('AudioConverterController', function($scope,$location,U
             zip.file(file.name, file.url);
         }
         let content = await zip.generateAsync({type:"blob"});
-        console.log(content);
         $scope.outputZIPFile = { 'url': URL.createObjectURL(content),
         'name': 'converted.zip' }
-        console.log($scope.outputZIPFile);
         $scope.loading = false;
 
         $scope.$apply();
@@ -62,7 +59,6 @@ DailyToolsApp.controller('AudioConverterController', function($scope,$location,U
 
     $scope.transcode = async (file) => {
 
-        console.log('converting file: ',file)
         let name = file.name;
         $scope.ffmpeg.FS('writeFile', name, await $scope.fetchFile(file));
         switch($scope.audio_params.target_format) {
@@ -79,7 +75,6 @@ DailyToolsApp.controller('AudioConverterController', function($scope,$location,U
         let outputFile = { 'url': URL.createObjectURL(new Blob([data.buffer], { type: 'audio/wav' })),
             'name': name }
         $scope.outputArr.push(outputFile);
-        console.log('file converted')
 
     }
 
