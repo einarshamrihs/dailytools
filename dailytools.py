@@ -22,5 +22,9 @@ def send_css(path):
 def send_views(path):
     return send_from_directory('templates/views', path)
 
+@app.route('/icons/<path:path>')
+def send_icons(path):
+    return send_from_directory('templates/icons', path)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=443,ssl_context='adhoc')
