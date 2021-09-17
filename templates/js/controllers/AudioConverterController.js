@@ -37,24 +37,33 @@ DailyToolsApp.controller('AudioConverterController', function($scope,$location,U
     $scope.convertFiles = async () => {
 
         $scope.loading = true;
+        $scope.error = '';
         $scope.loading_text = 'Converting...';
         $scope.outputArr = [];
-        for (const [i,file] of $scope.audioFile.entries()) {
-//            $scope.loading_text = `Converting ${i+1} of ${$scope.audioFile.length} files...`;
-            await $scope.transcode(file);
-        }
-//        $scope.loading_text = 'Creating download links...';
+        try {
+            for (const [i,file] of $scope.audioFile.entries()) {
+//                $scope.loading_text = `Converting ${i+1} of ${$scope.audioFile.length} files...`;
+                await $scope.transcode(file);
+            }
+//            $scope.loading_text = 'Creating download links...';
 
-        let zip = new JSZip();
-        for (const file of $scope.outputArr) {
-            zip.file(file.name, file.url);
-        }
-        let content = await zip.generateAsync({type:"blob"});
-        $scope.outputZIPFile = { 'url': URL.createObjectURL(content),
-        'name': 'converted.zip' }
-        $scope.loading = false;
+            let zip = new JSZip();
+            for (const file of $scope.outputArr) {
+                zip.file(file.name, file.url);
+            }
+            let content = await zip.generateAsync({type:"blob"});
+            $scope.outputZIPFile = { 'url': URL.createObjectURL(content),
+            'name': 'converted.zip' }
+            $scope.loading = false;
 
-        $scope.$apply();
+            $scope.$apply();
+        } catch (error) {
+            $scope.error = error;
+            $scope.loading = false;
+
+            $scope.$apply();
+            return
+        }
     }
 
     $scope.transcode = async (file) => {

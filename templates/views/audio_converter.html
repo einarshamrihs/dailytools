@@ -93,6 +93,8 @@
                         <span id="loading_text" class="sr-only">{{loading_text}}</span>
                     </div>
                 </div>
+                <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
                 <div ng-if="outputArr.length>0">Converted files:</div>
                 <div ng-if="outputArr.length>0"  ng-repeat="file in outputArr">
                     <div class="mb-2"><a class="btn btn-success col-6" href="{{file.url}}" role="button" targer="_blank" download="{{file.name}}">Download</a> {{file.name}}</div>
