@@ -23,6 +23,10 @@ config(['$routeProvider',
         .when("/key_generator", {
             templateUrl : "views/key_generator.html",
             active:'key_generator'
+        })
+        .when("/audio_decrypter", {
+            templateUrl : "views/audio_decrypter.html",
+            active:'audio_decrypter'
         });
     }
 ]);

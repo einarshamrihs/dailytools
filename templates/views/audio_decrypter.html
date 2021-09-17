@@ -1,0 +1,59 @@
+<div class="" ng-controller="AudioDecrypterController">
+    <div>
+        <h1>Audio decrypter</h1>
+    </div>
+
+    <body>
+        <div ng-show="!loading_ffmpeg" class="row justify-content-md-right">
+            <div class="col-12 pr-4">
+
+                <div class="form-group mb-2">
+                    <button class="btn btn-primary col-12 mb-2" name="audioFile" type="file" ngf-select ng-model="audioFile"
+                        ngf-max-size="50MB" ngf-multiple="false">Select File</button>
+                    <div ng-if="audioFile"><p>{{audioFile.name}}</p>
+                    </div>
+                </div>
+
+                <form name="decryptionForm" class="form-group mb-2">
+                
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"><span class="input-group-text">Private key:</span></div>
+                        <textarea id="private_key" ng-model="key_params.key"
+                            rows="10" cols="16" class="form-control mb-2" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----
+                           ...
+-----END PGP PRIVATE KEY BLOCK-----"></textarea>
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">Passphrase</span>
+                        </div>
+                        <input class="form-control" type="password"
+                            id="passphrase" name="passphrase" ng-model="key_params.passphrase"
+                            ng-required="true" min="2" max="50">
+                    </div>
+                    <div class="form-group mb-2">
+                        <button class="btn btn-primary col-12" ng-disabled="!decryptionForm.$valid || decrypting || !audioFile"
+                            ng-click="decryptAudio();">Decrypt audio</button>
+                    </div>
+                </form>
+
+                <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
+                <div ng-if="audioSrc">
+                    <div>
+                        Valid keys: {{validKeys}}
+                    </div>
+    
+                    <audio class="col-12" id="audioPlayer" ng-src="{{audioSrc}}" type="audio/mpeg" controls>
+                    </audio>
+                    <div>
+                        <a class="btn btn-success col-12" href="{{audioSrc}}" role="button" targer="_blank" download="decrypted">Download</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</div>
