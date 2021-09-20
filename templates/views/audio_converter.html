@@ -26,7 +26,7 @@
                         <select class="custom-select form-control"
                                 ng-model="audioParams.targetFormat"
                                 ng-options="f for f in targetFormats"
-                                id="targetFormat">
+                                id="target_format">
                         </select>
                     </div>
 
@@ -44,7 +44,7 @@
                                         ng-model="audioParams.bitResolution"
                                         ng-options="br.codec as br.title
                                             for br in bitResolutions"
-                                        id="bitResolution">
+                                        id="bit_resolution">
                                 </select>
                             </div>
             
@@ -56,7 +56,7 @@
                                 <select class="custom-select form-control"
                                         ng-model="audioParams.samplingRate"
                                         ng-options="sr for sr in samplingRates"
-                                        id="samplingRate">
+                                        id="sampling_rate">
                                 </select>
                             </div>
 
@@ -105,7 +105,7 @@
                         style="width: 3rem; height: 3rem;" role="status">
                     </div>
                     <div>
-                        <span id="loadingText"
+                        <span id="loading_text"
                             class="sr-only">{{loadingText}}</span>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
-DailyToolsApp.controller('HashController', function($scope,$location) {
+DailyToolsApp.controller('HashController',
+    function($scope,$location) {
 
     $scope.init = function () {
         if ($location.$$path === '/hash') {
@@ -6,49 +7,53 @@ DailyToolsApp.controller('HashController', function($scope,$location) {
         }
     }
 
-    $scope.hash_params = {
+    $scope.hashParams = {
         'algorithm': 'MD5',
-        'seperate_lines': true,
+        'seperateLines': true,
         'input': ''
     };
-    $scope.hash_output = '';
+    $scope.hashOutput = '';
     $scope.algorithms = ['MD5','SHA1','SHA256'];
 
     $scope.generateHash = () => {
         
-        $scope.hash_output = '';
+        $scope.hashOutput = '';
         let inputArr  = []
 
-        if ($scope.hash_params.seperate_lines) {
-            inputArr = $scope.hash_params.input.split("\n");
+        if ($scope.hashParams.seperateLines) {
+            inputArr = $scope.hashParams.input.split("\n");
         } else {
-            inputArr.push($scope.hash_params.input);
+            inputArr.push($scope.hashParams.input);
         }
 
         inputArr.forEach((val) => {
-            switch($scope.hash_params.algorithm) {
+            switch($scope.hashParams.algorithm) {
                 case 'MD5':
-                    $scope.hash_output = $scope.hash_output.concat(CryptoJS.MD5(val).toString());
-                    if ($scope.hash_params.seperate_lines) {
-                        $scope.hash_output = $scope.hash_output.concat('\n')
+                    $scope.hashOutput = $scope.hashOutput
+                        .concat(CryptoJS.MD5(val).toString());
+                    if ($scope.hashParams.seperateLines) {
+                        $scope.hashOutput = $scope.hashOutput.concat('\n');
                     }
                     break;
                 case 'SHA1':
-                    $scope.hash_output = $scope.hash_output.concat(CryptoJS.SHA1(val).toString());
-                    if ($scope.hash_params.seperate_lines) {
-                        $scope.hash_output = $scope.hash_output.concat('\n')
+                    $scope.hashOutput = $scope.hashOutput
+                        .concat(CryptoJS.SHA1(val).toString());
+                    if ($scope.hashParams.seperateLines) {
+                        $scope.hashOutput = $scope.hashOutput.concat('\n');
                     }
                     break;
                 case 'SHA256':
-                    $scope.hash_output = $scope.hash_output.concat(CryptoJS.SHA256(val).toString());
-                    if ($scope.hash_params.seperate_lines) {
-                        $scope.hash_output = $scope.hash_output.concat('\n')
+                    $scope.hashOutput = $scope.hashOutput
+                        .concat(CryptoJS.SHA256(val).toString());
+                    if ($scope.hashParams.seperateLines) {
+                        $scope.hashOutput = $scope.hashOutput.concat('\n');
                     }
                    break;
                 default:
-                    $scope.hash_output = $scope.hash_output.concat(CryptoJS.MD5(val).toString());
-                    if ($scope.hash_params.seperate_lines) {
-                        $scope.hash_output = $scope.hash_output.concat('\n')
+                    $scope.hashOutput = $scope.hashOutput
+                        .concat(CryptoJS.MD5(val).toString());
+                    if ($scope.hashParams.seperateLines) {
+                        $scope.hashOutput = $scope.hashOutput.concat('\n');
                     }
            }
         })
