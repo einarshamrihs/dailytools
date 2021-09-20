@@ -4,62 +4,71 @@
     </div>
 
     <body>
-        <div ng-if="loading_ffmpeg" class="text-center">
-            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <div ng-if="loadingFfmpeg" class="text-center">
+            <div class="spinner-border"
+                style="width: 3rem; height: 3rem;" role="status">
             </div>
             <div>
                 <span class="sr-only">Loading ffmpeg</span>
             </div>
         </div>
-        <div ng-show="!loading_ffmpeg" class="row justify-content-md-right">
+        <div ng-show="!loadingFfmpeg"
+            class="row justify-content-md-right">
             <div class="col-6 pr-4">
 
                 <form name="newAudioForm" class="form-group mb-2">
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="type">Target format:</span>
+                            <label class="input-group-text"
+                                for="type">Target format:</span>
                         </div>
                         <select class="custom-select form-control"
-                                ng-model="audio_params.target_format"
-                                ng-options="f for f in target_formats"
-                                id="target_format">
+                                ng-model="audioParams.targetFormat"
+                                ng-options="f for f in targetFormats"
+                                id="targetFormat">
                         </select>
                     </div>
 
 
-                    <div class="form-group mb-2" ng-switch="audio_params.target_format">
+                    <div class="form-group mb-2"
+                        ng-switch="audioParams.targetFormat">
                         <div ng-switch-when="wav">
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="type">Bit resolution:</span>
+                                    <label class="input-group-text"
+                                        for="type">Bit resolution:</span>
                                 </div>
                                 <select class="custom-select form-control"
-                                        ng-model="audio_params.bit_resolution"
-                                        ng-options="br.codec as br.title for br in bit_resolutions"
-                                        id="bit_resolution">
+                                        ng-model="audioParams.bitResolution"
+                                        ng-options="br.codec as br.title
+                                            for br in bitResolutions"
+                                        id="bitResolution">
                                 </select>
                             </div>
             
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="type">Sampling rate (Hz):</span>
+                                    <label class="input-group-text"
+                                        for="type">Sampling rate (Hz):</span>
                                 </div>
                                 <select class="custom-select form-control"
-                                        ng-model="audio_params.sampling_rate"
-                                        ng-options="sr for sr in sampling_rates"
-                                        id="sampling_rate">
+                                        ng-model="audioParams.samplingRate"
+                                        ng-options="sr for sr in samplingRates"
+                                        id="samplingRate">
                                 </select>
                             </div>
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="type">Channels:</span>
+                                    <label class="input-group-text"
+                                        for="type">Channels:</span>
                                 </div>
                                 <select class="custom-select form-control"
-                                        ng-model="audio_params.channels"
-                                        ng-options="ch.option as ch.title for ch in channels"
+                                        ng-model="audioParams.channels"
+                                        ng-options="ch.option as ch.title
+                                            for ch in channels"
                                         id="channels">
                                 </select>
                             </div>
@@ -71,15 +80,20 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <button class="btn btn-primary col-12 mb-2" name="audioFile" type="file" ngf-select accept="audio/*" ng-model="audioFile"
-                            ngf-max-size="20MB" ngf-multiple="true">Select Files</button>
+                        <button class="btn btn-primary col-12 mb-2"
+                            name="audioFile" type="file"
+                            ngf-select accept="audio/*" ng-model="audioFile"
+                            ngf-max-size="20MB"
+                            ngf-multiple="true">Select Files</button>
                         <div ng-if="audioFile.length>0">Selected files:
                             <p ng-repeat="audio in audioFile">{{audio.name}}</p>
                         </div>
                     </div>
 
                     <div class="form-group mb-2">
-                        <button class="btn btn-primary col-12" ng-disabled="audioFile.length > 30 || !audioFile || loading"
+                        <button class="btn btn-primary col-12"
+                            ng-disabled="audioFile.length > 30
+                            || !audioFile || loading"
                             ng-click="convertFiles();">Convert files</button>
                     </div>
                 </form>
@@ -87,20 +101,28 @@
 
             <div class="col-6 pr-4">
                 <div ng-if="loading" class="text-center">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    <div class="spinner-border"
+                        style="width: 3rem; height: 3rem;" role="status">
                     </div>
                     <div>
-                        <span id="loading_text" class="sr-only">{{loading_text}}</span>
+                        <span id="loadingText"
+                            class="sr-only">{{loadingText}}</span>
                     </div>
                 </div>
-                <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+                <div ng-if="error" class="alert alert-danger"
+                    role="alert">{{error}}</div>
 
                 <div ng-if="outputArr.length>0">Converted files:</div>
                 <div ng-if="outputArr.length>0"  ng-repeat="file in outputArr">
-                    <div class="mb-2"><a class="btn btn-success col-6" href="{{file.url}}" role="button" targer="_blank" download="{{file.name}}">Download</a> {{file.name}}</div>
+                    <div class="mb-2"><a class="btn btn-success col-6"
+                        href="{{file.url}}" role="button" targer="_blank"
+                        download="{{file.name}}">Download</a> {{file.name}}</div>
                 </div>
                 <div ng-if="outputZIPFile">
-                    <a class="btn btn-success col-12" href="{{outputZIPFile.url}}" role="button" targer="_blank" download="converted.zip">Download as ZIP</a>
+                    <a class="btn btn-success col-12"
+                        href="{{outputZIPFile.url}}" role="button"
+                        targer="_blank"
+                        download="converted.zip">Download as ZIP</a>
                 </div>
             </div>
         </div>

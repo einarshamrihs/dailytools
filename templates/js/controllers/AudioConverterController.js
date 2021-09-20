@@ -8,10 +8,10 @@ DailyToolsApp.controller('AudioConverterController',
         }
     }
 
-    $scope.target_formats = ['wav'];
-    $scope.sampling_rates = ['1000','8000','11025','16000','22050',
+    $scope.targetFormats = ['wav'];
+    $scope.samplingRates = ['1000','8000','11025','16000','22050',
         '24000','32000','44100','48000','96000'];
-    $scope.bit_resolutions = [{'title': '8 bit','codec':'pcm_s8'},
+    $scope.bitResolutions = [{'title': '8 bit','codec':'pcm_s8'},
         {'title': '16 bit','codec':'pcm_s16le'},
         {'title': '24 bit','codec':'pcm_s24le'},
         {'title': '32 bit','codec':'pcm_s32le'},
@@ -21,13 +21,13 @@ DailyToolsApp.controller('AudioConverterController',
         {'title': 'Mono','option':'1'},
         {'title': 'Stereo','option':'2'}
     ];
-    $scope.loading_ffmpeg = true;
+    $scope.loadingFfmpeg = true;
     $scope.loading = false;
-    $scope.loading_text = '';
+    $scope.loadingText = '';
 
-    $scope.audio_params = { 'target_format': 'wav',
-        'bit_resolution': 'pcm_s16le',
-        'sampling_rate': '8000',
+    $scope.audioParams = { 'targetFormat': 'wav',
+        'bitResolution': 'pcm_s16le',
+        'samplingRate': '8000',
         'channels': '1'}
 
     $scope.initFFmpeg = async () => {
@@ -35,7 +35,7 @@ DailyToolsApp.controller('AudioConverterController',
         $scope.fetchFile = FFmpeg.fetchFile;
         $scope.ffmpeg = $scope.createFFmpeg({ log: true });
         await $scope.ffmpeg.load();
-        $scope.loading_ffmpeg = false;
+        $scope.loadingFfmpeg = false;
         $scope.$apply();
     }
 
@@ -43,22 +43,22 @@ DailyToolsApp.controller('AudioConverterController',
 
         $scope.loading = true;
         $scope.error = '';
-        $scope.loading_text = 'Converting...';
+        $scope.loadingText = 'Converting...';
         $scope.outputArr = [];
         try {
             for (const [i,file] of $scope.audioFile.entries()) {
-//                $scope.loading_text = `Converting ${i+1} of ${$scope.audioFile.length} files...`;
+//                $scope.loadingText = `Converting ${i+1} of ${$scope.audioFile.length} files...`;
                 await $scope.transcode(file);
             }
-//            $scope.loading_text = 'Creating download links...';
+//            $scope.loadingText = 'Creating download links...';
 
             let zip = new JSZip();
             for (const file of $scope.outputArr) {
-                zip.file(file.name, file.url);
+                console.log('zipping: ',file);
+                zip.file(file.name, file.file, {binary: true});
             }
-            let content = await zip.generateAsync({type:"blob"});
-            $scope.outputZIPFile = { 'url': URL.createObjectURL(content),
-            'name': 'converted.zip' }
+            let content = await zip.generateAsync({type:'blob'});
+            $scope.outputZIPFile = { 'url': URL.createObjectURL(content),'name': 'converted.zip' }
             $scope.loading = false;
 
             $scope.$apply();
@@ -74,26 +74,27 @@ DailyToolsApp.controller('AudioConverterController',
     $scope.transcode = async (file) => {
 
         let name = file.name.replace(/\.[^/.]+$/, "") + '.'
-             + $scope.audio_params.target_format;
+             + $scope.audioParams.targetFormat;
         $scope.ffmpeg.FS('writeFile', name, await $scope.fetchFile(file));
-        switch($scope.audio_params.target_format) {
-            case "wav":
-                if ($scope.audio_params.channels===0) {
+        switch($scope.audioParams.targetFormat) {
+            case 'wav':
+                if ($scope.audioParams.channels===0) {
                     await $scope.ffmpeg.run('-i', name,'-ar','8000',
                         '-acodec','pcm_s16le', 'output.wav');
                 } else {
                     await $scope.ffmpeg.run('-i', name,
-                        '-ar',$scope.audio_params.sampling_rate,
-                        '-acodec',$scope.audio_params.bit_resolution,
-                        '-ac',$scope.audio_params.channels, 'output.wav');
+                        '-ar',$scope.audioParams.samplingRate,
+                        '-acodec',$scope.audioParams.bitResolution,
+                        '-ac',$scope.audioParams.channels, 'output.wav');
                 }
             default:
                 break;
         }
         let data = $scope.ffmpeg.FS('readFile', 'output.wav');
-        let outputFile = { 'url': URL.createObjectURL(new Blob([data.buffer],
-                { type: 'audio/wav' })),
-            'name': name }
+        let bl = new Blob([data.buffer],{ type: 'audio/wav' });
+        let outputFile = { 'url': URL.createObjectURL(bl),
+            'name': name,
+            'file': bl }
         $scope.outputArr.push(outputFile);
 
     }
