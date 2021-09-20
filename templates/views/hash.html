@@ -9,7 +9,9 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="type">Algorithm:</span>
+                        <label class="input-group-text"
+                            for="type">Algorithm:
+                        </span>
                     </div>
                     <select class="custom-select form-control"
                             ng-model="hashParams.algorithm"
@@ -19,28 +21,43 @@
                 </div>
                  
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="line_check" ng-model="hashParams.seperateLines">
-                    <label class="form-check-label" for="line_check">Treat every line like a seperate string</label>
+                    <input type="checkbox" class="form-check-input"
+                        id="line_check" ng-model="hashParams.seperateLines">
+                    <label class="form-check-label"
+                        for="line_check">
+                        Treat every line like a seperate string
+                    </label>
                 </div>
 
                 <div class="input-group mb-3">
-                    <div class="input-group-prepend"><span class="input-group-text">Input string:</span></div>
+                    <div class="input-group-prepend"><span
+                        class="input-group-text">Input string:</span></div>
                     <textarea id="hash_input" ng-model="hashParams.input"
-                        rows="16" cols="16" class="form-control mb-2" ng-required="true"></textarea>
+                        rows="16" cols="16" class="form-control mb-2"
+                        ng-required="true"></textarea>
                 </div>
     
 
             </form>
-            <button class="btn btn-primary col-12" type="button" ng-disabled="!genHashForm.$valid" ng-click="generateHash()">Generate</button>
+            <button class="btn btn-primary col-12" type="button"
+                ng-disabled="!genHashForm.$valid" ng-click="generateHash()">
+                Generate
+            </button>
         </div>
         <div class="col-6">
             <div class="input-group mb-3">
-                <div class="input-group-prepend"><span class="input-group-text">Your hash:</span></div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        Your hash:
+                    </span>
+                </div>
                 <textarea id="hash_output" ng-model="hashOutput"
-                    rows="20" cols="16" class="form-control mb-2" readonly></textarea>
+                    rows="20" cols="16" class="form-control mb-2" readonly>
+                </textarea>
             </div>
 
-            <button class="btn btn-primary col-12" type="button" ng-click="copyHash('hash_output')">Copy to clipboard</button>
+            <button class="btn btn-primary col-12" type="button"
+                ng-click="copyHash('hash_output')">Copy to clipboard</button>
         </div>
     </div>
 

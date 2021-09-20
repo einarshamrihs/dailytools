@@ -11,26 +11,31 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="type">Type:</span>
+                            <label class="input-group-text" for="type">
+                                Type:
+                            </label>
                         </div>
                         <select class="custom-select form-control"
-                                ng-model="key_params.type"
+                                ng-model="keyParams.type"
                                 ng-options="t for t in types"
                                 id="type">
                         </select>
                     </div>
 
 
-                    <div class="form-group mb-2" ng-switch="key_params.type">
+                    <div class="form-group mb-2" ng-switch="keyParams.type">
                         <div ng-switch-when="ecc">
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="curve">Curve:</span>
+                                    <label class="input-group-text" for="curve">
+                                        Curve:
+                                    </label>
                                 </div>
-                                <select class="custom-select form-control" ng-model="key_params.curve"
-                                        ng-options="c for c in curves"
-                                        id="curve">
+                                <select class="custom-select form-control"
+                                    ng-model="keyParams.curve"
+                                    ng-options="c for c in curves"
+                                    id="curve">
                                 </select>
                             </div>
                         </div>
@@ -38,10 +43,14 @@
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="rsa_bits">RSA bits:</span>
+                                    <label class="input-group-text"
+                                        for="rsa_bits">
+                                        RSA bits:
+                                    </label>
                                 </div>
-                                <select class="custom-select form-control" ng-model="key_params.rsa_bits"
-                                    ng-options="b for b in rsa_bits"
+                                <select class="custom-select form-control"
+                                    ng-model="keyParams.rsaBits"
+                                    ng-options="b for b in rsaBits"
                                     id="rsa_bits">
                                 </select>
                             </div>
@@ -51,46 +60,62 @@
                         </div>
                     </div>
 
-                    <div ng-repeat="u in key_params.users track by $index" class="form-group mb-3">
+                    <div ng-repeat="u in keyParams.users track by $index"
+                        class="form-group mb-3">
                         <div class="input-group">
-                            <button type="button" class="btn btn-danger col-1" ng-click="removeNetUser($index)">-</button>
+                            <button type="button" class="btn btn-danger col-1"
+                                ng-click="removeNetUser($index)">-</button>
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Name</span>
+                                <span class="input-group-text" id="">
+                                    Name
+                                </span>
                             </div>
                             <input type="text" class="form-control"
-                            id="user_name" name="user_name" ng-model="u.name"
-                            ng-required="true" min="2" max="50" ng-pattern="/^[a-zA-Z0-9 ._-]+$/">
+                                id="user_name" name="user_name"
+                                ng-model="u.name"
+                                ng-required="true" min="2" max="50"
+                                ng-pattern="/^[a-zA-Z0-9 ._-]+$/">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Email</span>
+                                <span class="input-group-text" id="">
+                                    Email
+                                </span>
                             </div>
                             <input type="text" class="form-control"
-                            id="email" name="email" ng-model="u.email"
-                            ng-required="true" min="2" max="50" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+                                id="email" name="email" ng-model="u.email"
+                                ng-required="true" min="2" max="50"
+                                ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
                         </div>
                     
                     </div>
-                    <button type="button" class="btn btn-success mb-3 col-12" ng-click="addNetUser()">+</button>
+                    <button type="button"
+                        class="btn btn-success mb-3 col-12"
+                        ng-click="addNetUser()">+</button>
 
 <!--                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="">Expires (days):</span>
                         </div>
                         <input class="form-control" type="number"
-                            id="expires" name="expires" ng-model="key_params.expires"
+                            id="expires" name="expires" ng-model="keyParams.expires"
                             ng-required="true" min="1" max="1000">
                     </div>-->
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="">Passphrase</span>
+                            <span class="input-group-text" id="">
+                                Passphrase
+                            </span>
                         </div>
                         <input class="form-control" type="password"
-                            id="passphrase" name="passphrase" ng-model="key_params.passphrase"
-                            ng-required="true" min="2" max="50" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@('@')$!%*#?&{}[\]<>()^+=;:'&quot;/\\|-])[A-Za-z\d$@('@')$!%*#?&{}[\]<>()^+=;:'&quot;/\\|-]{8,20}$/">
+                            id="passphrase" name="passphrase"
+                            ng-model="keyParams.passphrase"
+                            ng-required="true" min="2" max="50"
+                            ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@('@')$!%*#?&{}[\]<>()^+=;:'&quot;/\\|-])[A-Za-z\d$@('@')$!%*#?&{}[\]<>()^+=;:'&quot;/\\|-]{8,20}$/">
                     </div>
                     <div class="form-group mb-2">
-                        <button class="btn btn-primary col-12" ng-disabled="!neyKey.$valid || generating"
-                            ng-click="generateKey();">Generate Key</button>
+                        <button class="btn btn-primary col-12"
+                        ng-disabled="!neyKey.$valid || generating"
+                        ng-click="generateKey();">Generate Key</button>
                     </div>
                 </form>
 
@@ -98,16 +123,20 @@
             </div>
 
         </div>
-        <div class="row justify-content-md-right" ng-show="!generating && privateKey && publicKey">
+        <div class="row justify-content-md-right"
+            ng-show="!generating && privateKey && publicKey">
             <div ng-if="generating" class="text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                <div class="spinner-border"
+                    style="width: 3rem; height: 3rem;" role="status">
                 </div>
                 <div>
-                    <span id="loading_text" class="sr-only">Generating...</span>
+                    <span id="loading_text"
+                        class="sr-only">Generating...</span>
                 </div>
             </div>
 
-            <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+            <div ng-if="error" class="alert alert-danger"
+                role="alert">{{error}}</div>
 
             <div class="col-6 pr-4">
                 <div class="input-group mb-3">
@@ -115,16 +144,24 @@
                       <span class="input-group-text">Public key</span>
                     </div>
                     <textarea id="public_key" ng-model="publicKey"
-                        rows="10" cols="16" class="form-control" readonly></textarea>
+                        rows="10" cols="16" class="form-control" readonly>
+                    </textarea>
                 </div>
                 <div class="col-12 row mb-3">
                     <div class="col-6 pl-3">
-                        <button class="btn btn-primary col-12" type="button" ng-click="copyKey('public_key')">Copy to clipboard</button>
+                        <button class="btn btn-primary col-12" type="button"
+                            ng-click="copyKey('public_key')">
+                            Copy to clipboard
+                        </button>
                     </div>
                     <div class="col-6 pl-3">
-                            <a class="btn btn-success col-12" href="{{publicKeyUrl}}" role="button" targer="_blank" download="{{publicKeyFilename}}">Download</a>
-                        </div>
+                        <a class="btn btn-success col-12"
+                            href="{{publicKeyUrl}}" role="button"
+                            targer="_blank" download="{{publicKeyFilename}}">
+                            Download
+                        </a>
                     </div>
+                </div>
 
                 </div>
                 <div class="col-6 pr-4">
@@ -133,14 +170,23 @@
                       <span class="input-group-text">Private key</span>
                     </div>
                     <textarea id="private_key" ng-model="privateKey"
-                        rows="10" cols="16" class="form-control" readonly></textarea>
+                        rows="10" cols="16" class="form-control" readonly>
+                    </textarea>
                 </div>
                 <div class="col-12 row mb-3">
                     <div class="col-6 pl-3">
-                        <button class="btn btn-primary col-12" type="button" ng-click="copyKey('private_key')">Copy to clipboard</button>
+                        <button class="btn btn-primary col-12"
+                            type="button"
+                            ng-click="copyKey('private_key')">
+                            Copy to clipboard
+                        </button>
                     </div>
                     <div class="col-6 pl-3">
-                        <a class="btn btn-success col-12" href="{{privateKeyUrl}}" role="button" targer="_blank" download="{{privateKeyFilename}}">Download</a>
+                        <a class="btn btn-success col-12"
+                            href="{{privateKeyUrl}}" role="button"
+                            targer="_blank" download="{{privateKeyFilename}}">
+                            Download
+                        </a>
                     </div>
                 </div>
 
