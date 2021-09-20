@@ -54,7 +54,6 @@ DailyToolsApp.controller('AudioConverterController',
 
             let zip = new JSZip();
             for (const file of $scope.outputArr) {
-                console.log('zipping: ',file);
                 zip.file(file.name, file.file, {binary: true});
             }
             let content = await zip.generateAsync({type:'blob'});

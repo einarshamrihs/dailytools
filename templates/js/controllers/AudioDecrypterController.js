@@ -1,4 +1,5 @@
-DailyToolsApp.controller('AudioDecrypterController', function($scope,$location,Upload) {
+DailyToolsApp.controller('AudioDecrypterController',
+    function($scope,$location,Upload) {
 
     $scope.init = function () {
         if ($location.$$path === '/audio_decrypter') {
@@ -19,17 +20,18 @@ DailyToolsApp.controller('AudioDecrypterController', function($scope,$location,U
         reader.addEventListener('load', readFile);
         reader.readAsText($scope.audioFile);
 
-        const privateKeyArmored = $scope.key_params.key;
-        const passphrase = $scope.key_params.passphrase;
+        const privateKeyArmored = $scope.keyParams.key;
+        const passphrase = $scope.keyParams.passphrase;
 
         try {
             const privateKey = await openpgp.decryptKey({
-                privateKey: await openpgp.readPrivateKey({ armoredKey: $scope.key_params.key }),
-                passphrase: $scope.key_params.passphrase
+                privateKey: await openpgp.readPrivateKey(
+                    { armoredKey: $scope.keyParams.key }),
+                passphrase: $scope.keyParams.passphrase
             }) 
 
             const message = await openpgp.readMessage({
-                armoredMessage: $scope.record // parse armored message
+                armoredMessage: $scope.record
             });
 
             let validKeys = [];
