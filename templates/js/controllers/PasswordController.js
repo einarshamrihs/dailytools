@@ -1,4 +1,5 @@
-DailyToolsApp.controller('PasswordController', function($scope,$location,$document) {
+DailyToolsApp.controller('PasswordController',
+    function($scope,$location,$document) {
 
     $scope.init = () => {
         if ($location.$$path === '/password') {
@@ -6,24 +7,25 @@ DailyToolsApp.controller('PasswordController', function($scope,$location,$docume
         }
     }
 
-    $scope.password_params = { 'passwords': 1, 'letters': 8, 'digits': 4, 'symbols': 4, 'allowed_symbols': '!#$%&()+<=>?@' };
-    $scope.passwords_list = '';
+    $scope.passwordParams = { 'passwords': 1, 'letters': 8,
+        'digits': 4, 'symbols': 4, 'allowedSymbols': '!#$%&()+<=>?@' };
+    $scope.passwordsList = '';
 
     $scope.generatePassword = () => {
 
-        $scope.passwords_list = '';
+        $scope.passwordsList = '';
 
-        let letters = $scope.password_params.letters;
-        let numbers = $scope.password_params.digits;
-        let symbols = $scope.password_params.symbols;
+        let letters = $scope.passwordParams.letters;
+        let numbers = $scope.passwordParams.digits;
+        let symbols = $scope.passwordParams.symbols;
 
         let chars = [
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", // letters
-            "0123456789", // numbers
-            $scope.password_params.allowed_symbols // either
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+            "0123456789",
+            $scope.passwordParams.allowedSymbols
             ];
 
-        for (let i = 0; i < $scope.password_params.passwords; i++) {
+        for (let i = 0; i < $scope.passwordParams.passwords; i++) {
 
             let password = [letters, numbers, symbols].map((len, i) => {
                 return Array(len).fill(chars[i]).map((x) => {
@@ -33,12 +35,15 @@ DailyToolsApp.controller('PasswordController', function($scope,$location,$docume
                 return 0.5-Math.random();
             }).join('');
 
-            $scope.passwords_list = $scope.passwords_list.concat(password, '\n');
+            $scope.passwordsList = $scope.passwordsList.concat(password, '\n');
         }
 
-        let passwords_area = $document[0].getElementById('passwords_area');
-        passwords_area.rows = $scope.password_params.passwords;
-        passwords_area.cols = $scope.password_params.letters + $scope.password_params.digits + $scope.password_params.symbols + 16;
+        let passwordsArea = $document[0].getElementById('passwords_area');
+        passwordsArea.rows = $scope.passwordParams.passwords;
+        passwordsArea.cols = $scope.passwordParams.letters
+             + $scope.passwordParams.digits
+             + $scope.passwordParams.symbols
+             + 16;
 
     }
 
