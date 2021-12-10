@@ -1,0 +1,10 @@
+# Environments
+venv/
+
+#dependencies
+templates/js/libs/
+templates/js/bootstrap/
+templates/css/bootstrap/
+
+#ENV
+.env

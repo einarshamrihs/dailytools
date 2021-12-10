@@ -1,5 +1,8 @@
 from flask import Flask
 from flask import render_template, send_from_directory, make_response
+from settings import Settings
+
+settings = Settings()
 
 app = Flask(__name__, static_url_path='/templates')
 
@@ -27,4 +30,4 @@ def send_icons(path):
     return send_from_directory('templates/icons', path)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=443,ssl_context='adhoc')
+    app.run(host='0.0.0.0',port=settings.http_port,ssl_context=settings.ssl_context)
