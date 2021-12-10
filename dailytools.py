@@ -17,6 +17,10 @@ def hello_world():
 def send_js(path):
     return send_from_directory('templates/js', path)
 
+@app.route('/node_modules/<path:path>')
+def send_node_modules(path):
+    return send_from_directory('templates/node_modules/', path)
+
 @app.route('/css/<path:path>')
 def send_css(path):
     return send_from_directory('templates/css', path)

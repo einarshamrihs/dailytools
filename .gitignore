@@ -2,9 +2,7 @@
 venv/
 
 #dependencies
-templates/js/libs/
-templates/js/bootstrap/
-templates/css/bootstrap/
+templates/node_modules/
 
 #ENV
 .env
