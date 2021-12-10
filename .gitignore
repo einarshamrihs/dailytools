@@ -8,3 +8,6 @@ templates/css/bootstrap/
 
 #ENV
 .env
+
+__pycache__/
+.idea/
