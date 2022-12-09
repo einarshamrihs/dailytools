@@ -1,0 +1,30 @@
+{
+  "name": "dailytools",
+  "version": "1.0.0",
+  "description": "Install frontend dependencies:\r ```\r cd templates\r yarn install\r ```\r Install the backend dependencies:\r ```\r cd ../\r pip install requiremenets.txt\r ```\r Run the application:\r ```\r python3.9 dailytools.py\r ```",
+  "main": "index.js",
+  "dependencies": {
+    "@ffmpeg/core": "0.10.0",
+    "@ffmpeg/ffmpeg": "0.10.0",
+    "angular": "1.8.2",
+    "angular-route": "1.8.2",
+    "bootstrap": "5.1",
+    "crypto-js": "4.1.1",
+    "jszip": "3.2.0",
+    "ng-file-upload": "12.2.13",
+    "openpgp": "5.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/einarshamrihs/dailytools.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/einarshamrihs/dailytools/issues"
+  },
+  "homepage": "https://github.com/einarshamrihs/dailytools#readme"
+}
