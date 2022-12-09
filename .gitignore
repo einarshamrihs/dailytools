@@ -1,14 +1,2 @@
-# Environments
-venv/
-
 #dependencies
 templates/node_modules/
-
-#ENV
-.env
-
-__pycache__/
-.idea/
-
-vercel.json
-.vercel
